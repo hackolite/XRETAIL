@@ -1,2 +1,4 @@
-# XRETAIL
-price pad inventory
+# xretail
+
+
+An universal mobile machine learning application for store and retail inventory.
