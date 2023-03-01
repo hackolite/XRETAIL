@@ -1,0 +1,2 @@
+# XRETAIL
+price pad inventory
