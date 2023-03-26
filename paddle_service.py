@@ -1,10 +1,23 @@
+from paddleocr import PaddleOCR,draw_ocr
+import numpy as np
+from ultralytics import YOLO
+from PIL import Image
+import cv2
+import torch
+import os
+import numpy as np
+import torchvision
+import torch
+import cv2
 
 
-class Paddle:
+class PaddleService:
 
-        def __init__(self):
-            pass
-            self.image = None
+        def __init__(self, image_path=None):
+            self.conf =  None
+            if image_path != None:
+                self.image_pil = im1 = Image.open(image_path).convert("RGB")
+                self.image_cv  = np.array(self.image_pil)
 
         def preprocessing(self, image=None):
             nimg = np.array(image)
@@ -15,7 +28,7 @@ class Paddle:
         def get_result(self):
             pass
 
-        def load_models(self, modeles={}):
+        def load_models(self, models={}):
             pass
 
         def get_ocr_engine_options(self):
@@ -28,9 +41,18 @@ class Paddle:
         def set_ocr_engine_options(self, options=None):
             pass
 
-
         def get_ocr_engine_center(self):
             pass
 
-        def scan_image(self, image=None):
-            pass
+
+        def load_image(image=None):
+            self.image = image
+
+
+        def scan(self, image=None):
+            if image == None:
+                image= self.image_cv
+            ocr = PaddleOCR(lang='en', use_angle_cls=True) # need to run only once to download and load model into memory
+            result = ocr.ocr(image, cls=True)
+            self.result = result
+            return self.result
