@@ -79,7 +79,6 @@ class YoloService:
                 self.image_pil = image_pil
                 self.image_cv = np.array(self.image_pil)
 
-
         def scan(self, modele=None):
             if modele == "tag":
                 print("TAG")

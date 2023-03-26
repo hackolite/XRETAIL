@@ -16,7 +16,7 @@ class PaddleService:
         def __init__(self, image_path=None):
             self.conf =  None
             if image_path != None:
-                self.image_pil = im1 = Image.open(image_path).convert("RGB")
+                self.image_pil = Image.open(image_path).convert("RGB")
                 self.image_cv  = np.array(self.image_pil)
 
         def preprocessing(self, image=None):
@@ -45,14 +45,15 @@ class PaddleService:
             pass
 
 
-        def load_image(image=None):
-            self.image = image
+        def load_image(self, image=None):
+            self.image_pil = image
+            self.image_cv  = np.array(self.image_pil)
 
 
-        def scan(self, image=None):
-            if image == None:
-                image= self.image_cv
+        def scan(self):
+            #if image == None:
+            #    image= self.image_cv
             ocr = PaddleOCR(lang='en', use_angle_cls=True) # need to run only once to download and load model into memory
-            result = ocr.ocr(image, cls=True)
+            result = ocr.ocr( self.image_cv, cls=True)
             self.result = result
             return self.result
